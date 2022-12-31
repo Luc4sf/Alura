@@ -1,6 +1,6 @@
 # Imersão React - Alura
 
-[![licence mit](https://img.shields.io/github/license/Luc4sf/Alura)](https://github.com/Luc4sf/Alura/blob/main/LICENSE)
+[![license mit](https://img.shields.io/github/license/Luc4sf/Alura)](https://github.com/Luc4sf/Alura/blob/main/LICENSE.md)
 
 > :rocket: Projeto com o objetivo de criar um site de vídeos, chamado AluraTube
 
@@ -24,4 +24,4 @@ See [Releases](https://github.com/Luc4sf/Alura/releases) for detailed changelog.
 -->
 
 ## License
-[MIT License](https://github.com/Luc4sf/Alura/blob/main/LICENSE) © Lucas Faganello Silva
+[MIT License](https://github.com/Luc4sf/Alura/blob/main/LICENSE.md) © Lucas Faganello Silva
