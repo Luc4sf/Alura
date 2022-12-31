@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export const StyledTimeline = styled.div`
+export const StyledFavorite = styled.div`
   background-color: #f8f8f8;
 
-  flex: 1;
+  //flex: 1;
   width: 100%;
   padding: 16px;
   overflow: hidden;
@@ -13,12 +13,12 @@ export const StyledTimeline = styled.div`
     text-transform: capitalize;
   }
   img {
-    aspect-ratio: 16/9;
-    font-weight: 500;
-    object-fit: cover;
-    width: 100%;
-    max-width: 210px;
-    height: auto;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
   section {
     width: 100%;
@@ -30,9 +30,9 @@ export const StyledTimeline = styled.div`
       width: calc(100vw - 16px * 4);
       display: grid;
       grid-gap: 16px;
-      grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+      grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
       grid-auto-flow: column;
-      grid-auto-columns: minmax(200px,1fr);
+      grid-auto-columns: minmax(150px,1fr);
       overflow-x: scroll;
       scroll-snap-type: x mandatory;
       a {
@@ -40,7 +40,7 @@ export const StyledTimeline = styled.div`
         span {
           padding-top: 8px;
           display: block;
-          padding-right: 24px;
+          text-align: center;
           color: ${({ theme }) => theme.textColorBase || "#222222"};
         }
       }

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
+import { StyledFavorite } from "../src/components/Favorites";
 
 function HomePage() {
   const estilosDaHomePage = {
@@ -22,8 +23,9 @@ function HomePage() {
         <Menu />
         <Header />
         <Timeline playlists={config.playlists}>
-          Salve
         </Timeline>
+        <Favorites favorites={config.favorites}>
+        </Favorites>
       </div>
     </>
   );
@@ -46,18 +48,24 @@ const StyledHeader = styled.div`
     border-radius: 50%;
   }
   .user-info {
-    margin-top: 50px;
     display: flex;
     align-items: center;
     width: 100%;
     padding: 16px 32px;
     gap: 16px;
   }
+  .banner {
+    border-radius: 0%;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: 0% 60%;
+  }
 `;
 function Header() {
   return (
     <StyledHeader>
-      {/* <img src="banner"/> */}
+      {<img className="banner" src="https://images.unsplash.com/photo-1611996575749-79a3a250f948?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" />}
       <section className="user-info">
         <img src={`https://github.com/${config.github}.png`} />
         <div>
@@ -82,8 +90,8 @@ function Timeline(propriedades) {
     <StyledTimeline>
       {playlistNames.map((playlistName) => {
         const videos = propriedades.playlists[playlistName];
-        console.log(playlistName);
-        console.log(videos);
+        //console.log(playlistName);
+        //console.log(videos);
         return (
           <section>
             <h2>{playlistName}</h2>
@@ -106,3 +114,30 @@ function Timeline(propriedades) {
   )
 }
 
+function Favorites(propriedades) {
+  const favoritesNames = Object.keys(propriedades.favorites);
+  return (
+    <StyledFavorite>
+      {favoritesNames.map((favoritesName) => {
+        const youtubers = propriedades.favorites[favoritesName];
+        return (
+          <section>
+            <h2>{favoritesName}</h2>
+            <div>
+              {youtubers.map((youtuber) => {
+                return (
+                  <a href={youtuber.url}>
+                    <img src={youtuber.thumb} />
+                    <span>
+                      {youtuber.user}
+                    </span>
+                  </a>
+                )
+              })}
+            </div>
+          </section>
+        )
+      })}
+    </StyledFavorite>
+  )
+}
