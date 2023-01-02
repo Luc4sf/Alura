@@ -1,3 +1,4 @@
+import React from "react";
 import config from "../config.json";
 import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
@@ -11,6 +12,7 @@ function HomePage() {
   };
 
   // console.log(config.playlists);
+  const [valorDoFiltro, setValorDoFiltro] = React.useState("");
   return (
     <>
       <CSSReset />
@@ -20,9 +22,10 @@ function HomePage() {
         flex: 1,
         // backgroundColor: "red",
       }}>
-        <Menu />
+        {/* Prop Drilling */}
+        <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
         <Header />
-        <Timeline playlists={config.playlists}>
+        <Timeline searchValue={valorDoFiltro} playlists={config.playlists}>
         </Timeline>
         <Favorites favorites={config.favorites}>
         </Favorites>
@@ -32,14 +35,6 @@ function HomePage() {
 }
 
 export default HomePage
-
-// function Menu() {
-//   return (
-//     <div>
-//       Menu
-//     </div>
-//   )
-// }
 
 const StyledHeader = styled.div`
   img {
@@ -54,18 +49,19 @@ const StyledHeader = styled.div`
     padding: 16px 32px;
     gap: 16px;
   }
-  .banner {
-    border-radius: 0%;
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    object-position: 0% 60%;
-  }
+`;
+const StyledBanner = styled.div`
+  background-image: url(${({ bg }) => bg});
+  /* background-image: url(${config.bg}); */
+  background-repeat: no-repeat;
+  background-position: 0% 60%;
+  background-size: 100%;
+  height: 230px;
 `;
 function Header() {
   return (
     <StyledHeader>
-      {<img className="banner" src="https://images.unsplash.com/photo-1611996575749-79a3a250f948?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" />}
+      <StyledBanner bg={config.bg} />
       <section className="user-info">
         <img src={`https://github.com/${config.github}.png`} />
         <div>
@@ -81,10 +77,10 @@ function Header() {
   )
 }
 
-function Timeline(propriedades) {
+function Timeline({ searchValue, ...propriedades }) {
   // console.log("Dentro do componente", props.playlists );
   const playlistNames = Object.keys(propriedades.playlists);
-  // statement (for(i in aksdams) normal)
+  // statement (for(i in something) normal)
   // retorno por expressao (react)
   return (
     <StyledTimeline>
@@ -93,15 +89,19 @@ function Timeline(propriedades) {
         //console.log(playlistName);
         //console.log(videos);
         return (
-          <section>
+          <section key={playlistName}>
             <h2>{playlistName}</h2>
             <div>
-              {videos.map((video) => {
+              {videos.filter((video) => {
+                const titleNormalized = video.title.toLowerCase();
+                const searchValueNormalized = searchValue.toLowerCase();
+                return titleNormalized.includes(searchValueNormalized)
+              }).map((video) => {
                 return (
-                  <a href={video.url}>
+                  <a key={video.url} href={video.url}>
                     <img src={video.thumb} />
                     <span>
-                      {video.title}
+                      {video.title} 
                     </span>
                   </a>
                 )
@@ -121,12 +121,12 @@ function Favorites(propriedades) {
       {favoritesNames.map((favoritesName) => {
         const youtubers = propriedades.favorites[favoritesName];
         return (
-          <section>
+          <section key={favoritesName}>
             <h2>{favoritesName}</h2>
             <div>
               {youtubers.map((youtuber) => {
                 return (
-                  <a href={youtuber.url}>
+                  <a key={youtuber.url} href={youtuber.url}>
                     <img src={youtuber.thumb} />
                     <span>
                       {youtuber.user}
