@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledTimeline = styled.div`
-  background-color: #f8f8f8;
 
   flex: 1;
   width: 100%;
